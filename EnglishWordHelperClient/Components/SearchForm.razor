@@ -1,0 +1,4 @@
+﻿<form class="search-word">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+    @bind-value="@SearchTerm" @bind-value:event="oninput" @onblur="SearchChanged" @onkeyup="SearchChanged">
+</form>

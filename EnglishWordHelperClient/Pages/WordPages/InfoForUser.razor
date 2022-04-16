@@ -1,0 +1,28 @@
+﻿@page "/"
+@using EnglishWordHelperClient.Components
+
+
+<h5>Use this Url request to get some information about your english word</h5>
+<p><code>https://localhost:5001/api/word/get-information/"Your word"</code></p>
+<h5>For Example:</h5>
+<p><code>https://localhost:5001/api/word/get-information/red</code></p>
+<h5>You will receive this similar Json response to your request:</h5>
+<pre><code>
+{
+  "name": "Red",
+  "transcription": "red",
+  "urlAudio": "https://api.dictionaryapi.dev/media/pronunciations/en/red-us.mp3",
+  "examples": [
+    "I have a red car", 
+    "This flower is red",
+    "This bird is red"
+  ],
+  "translates": [
+    "Красный"
+  ],
+  "pictures": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Red_flag.svg/1280px-Red_flag.svg.png",
+    "https://media.istockphoto.com/photos/red"  
+  ]
+}
+</code></pre>

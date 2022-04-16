@@ -8,10 +8,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Linq;
+using EnglishWordHelperClient.HttpServices.Interfaces;
 
 namespace EnglishWordHelperClient.HttpServices
 {
-    public class WordHttpService
+    public class WordHttpService : IWordHttpService
     {
         private readonly HttpClient httpClient;
         private const string NAME_REQUEST = "word";

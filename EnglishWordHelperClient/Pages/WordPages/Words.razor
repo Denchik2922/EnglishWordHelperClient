@@ -1,5 +1,58 @@
-﻿<h3>Words</h3>
+﻿@page "/words"
+@using EnglishWordHelperClient.Components
+@using Microsoft.AspNetCore.Authorization
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Admin")]
 
-@code {
-
+@if (AllWords == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <h3>Words</h3>
+    <div class="words">
+        <div class="func-block">
+            <NavLink href="create-word">
+                 <p>Create word <span title="Add new word" class="oi oi-plus"></span></p>
+            </NavLink> 
+            <div class="row">
+                <div class="col-md-6">
+                    <SearchForm OnSearchChanged="SearchChanged" />
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Transcription</th>
+                    <th>Translates</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var word in AllWords)
+                {
+                    <tr @onclick="@(()=>NavigationManager.NavigateTo($"/edit-word/{word.Id}"))">
+                        <td>@word.Id</td>
+                        <td>@word.Name</td>
+                        <td>@word.Transcription</td>
+                        <td>@foreach (var translate in @word.Translates)
+                            {
+                                <p>
+                                    @translate.Name
+                                </p>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+         <div class="col">
+             <Paginator MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+         </div>
+    </div>
 }
