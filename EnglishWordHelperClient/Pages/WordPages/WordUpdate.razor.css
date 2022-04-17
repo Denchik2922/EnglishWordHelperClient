@@ -1,0 +1,41 @@
+﻿.translate {
+    margin: 5px;
+    padding: 7px;
+    cursor: pointer;
+}
+
+    .translate span {
+        margin-left: 3px;
+    }
+
+.word-img {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.func-block div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.word-func {
+    text-align: end;
+}
+
+.word-func {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.icon {
+    top: 3px;
+}
+
+.translate-group div {
+    margin-bottom: 5px;
+}
+
+
+trans-inp:valid {
+    border: 2px solid black;
+}

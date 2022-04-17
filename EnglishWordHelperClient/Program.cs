@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Tewr.Blazor.FileReader;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace EnglishWordHelperClient
@@ -34,6 +35,7 @@ namespace EnglishWordHelperClient
             builder.Services.AddScoped<HttpInterceptorService>();
 
             builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddFileReaderService(o => o.UseWasmSharedBuffer = true);
 
             builder.Services.AddAuthorizationCore();
 

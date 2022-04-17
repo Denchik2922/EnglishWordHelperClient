@@ -13,7 +13,7 @@ else
     <h3>Words</h3>
     <div class="words">
         <div class="func-block">
-            <NavLink href="create-word">
+            <NavLink href="add-word">
                  <p>Create word <span title="Add new word" class="oi oi-plus"></span></p>
             </NavLink> 
             <div class="row">
@@ -41,7 +41,7 @@ else
                         <td>@foreach (var translate in @word.Translates)
                             {
                                 <p>
-                                    @translate.Name
+                                    @translate
                                 </p>
                             }
                         </td>

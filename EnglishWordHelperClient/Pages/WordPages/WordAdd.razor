@@ -1,5 +1,116 @@
-﻿<h3>WordAdd</h3>
+﻿@page "/add-word"
+@using EnglishWordHelperClient.Components
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize]
 
-@code {
 
-}
+<div class="row justify-content-md-center">
+    <div class="col-md-7 col-sm-12">
+    <h2>Add new word</h2>
+    <div class="col">
+        <EditForm Model="_word" OnValidSubmit="CreateWord" class="card card-body bg-light">
+                <DataAnnotationsValidator />
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="anem" class="form-label">Name</label>
+                            <InputText id="name" placeholder="Enter english word" class="form-control" @bind-Value="_word.Name" />
+                            <ValidationMessage For="@(() => _word.Name)" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="transcription" class="form-label">Transcription</label>
+                        <InputText id="transcription" placeholder="Enter transcription" class="form-control" @bind-Value="_word.Transcription" />
+                        <ValidationMessage For="@(() => _word.Transcription)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 translate-group">
+                        <label for="photo" class="form-label">Audio</label>
+                        <AudioUpload OnChange="AssignAudioUrl" />
+                        @if(_word.UrlAudio != null)
+                            {
+                             <button type=button id="button-sound" @onclick="PlaySound" class="btn btn-primary">
+                                <span class="icon oi oi-volume-high"></span>
+                                <audio id="sound" src="@_word.UrlAudio" />
+                             </button>
+                            }
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 translate-group">
+                        <label for="discription" class="form-label">Translates</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control trans-inp" placeholder="New tranlate" aria-describedby="button-add" @bind="_newTranslate"/>
+                            <button type=button  id="button-addon2" @onclick="AddTranslate" class="btn btn-success">
+                                <span class="icon  oi oi-plus"></span>
+                            </button>
+                          </div>
+                           <ValidationMessage For="@(() => _word.Translates)" />
+                        <div>
+                            @if(_word.Translates != null)
+                            {
+                                @foreach (var translate in _word.Translates)
+                                {
+                                <span @onclick="() => RemoveItemFromList(_word.Translates, translate)" class="badge rounded-pill text-dark bg-warning translate">
+                                     @translate
+                                     <span class="oi oi-x"></span>
+                                </span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 translate-group">
+                        <label for="discription" class="form-label">Examples</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control trans-inp" placeholder="New example" aria-describedby="button-add" @bind="_newExample"/>
+                            <button type=button id="button-addon2" @onclick="AddExample" class="btn btn-success">
+                                <span class="icon  oi oi-plus"></span>
+                            </button>
+                          </div>
+                           <ValidationMessage For="@(() => _word.Examples)" />
+                        <div style="padding:10px;">
+                            @if (_word.Examples != null)
+                            {
+                                @foreach (var example in _word.Examples)
+                                {
+                                    <p>
+                                        @example
+                                        <span @onclick="() => RemoveItemFromList(_word.Examples, example)" style="color:red;" class="oi oi-x"></span>
+                                    </p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 translate-group">
+                        <label for="photo" class="form-label">Pictures</label>
+                        <ImageUpload OnChange="AssignImageUrl" />
+                        @if(_word.Pictures != null)
+                        {
+                           <div>
+                           @foreach (var picture in _word.Pictures)
+                                {
+                                     <img @onclick="() => RemoveItemFromList(_word.Pictures ,picture)" class="word-img" src="@picture" alt="" width="70" height="70">
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                  </div>
+            </EditForm>
+    </div>
+
+    </div>
+</div>

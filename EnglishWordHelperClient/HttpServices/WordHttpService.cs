@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Linq;
 using EnglishWordHelperClient.HttpServices.Interfaces;
+using Tewr.Blazor.FileReader;
+using System.Net.Http.Headers;
+using System;
 
 namespace EnglishWordHelperClient.HttpServices
 {
@@ -61,6 +64,21 @@ namespace EnglishWordHelperClient.HttpServices
         {
             var response = await httpClient.DeleteAsync($"{NAME_REQUEST}/?id={id}");
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<string> UploadFile(IFileReference file, string fileType)
+        {
+            var fileInfo = await file.ReadFileInfoAsync();
+            using (var ms = await file.CreateMemoryStreamAsync(4 * 1024))
+            {
+                var content = new MultipartFormDataContent();
+                content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+                content.Add(new StreamContent(ms, Convert.ToInt32(ms.Length)), fileType, fileInfo.Name);
+
+                var response = await httpClient.PostAsync($"upload/{fileType}", content);
+                var audioUrl = await response.Content.ReadAsStringAsync();
+                return audioUrl;
+            }
         }
     }
 }

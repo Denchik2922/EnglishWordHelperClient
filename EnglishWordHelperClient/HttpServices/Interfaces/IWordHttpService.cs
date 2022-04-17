@@ -1,6 +1,7 @@
 ﻿using EnglishWordHelperClient.Infrastructure.RequestFeatures;
 using EnglishWordHelperClient.Models;
 using System.Threading.Tasks;
+using Tewr.Blazor.FileReader;
 
 namespace EnglishWordHelperClient.HttpServices.Interfaces
 {
@@ -12,5 +13,6 @@ namespace EnglishWordHelperClient.HttpServices.Interfaces
         Task<bool> Create(WordDetails entity);
         Task<bool> Update(WordDetails entity);
         Task<bool> Delete(int id);
+        Task<string> UploadFile(IFileReference file, string fileType);
     }
 }

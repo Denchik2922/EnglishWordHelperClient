@@ -8,8 +8,8 @@ namespace EnglishWordHelperClient.Models
 		public string Name { get; set; }
 		public string Transcription { get; set; }
 		public string UrlAudio { get; set; }
-		public ICollection<WordExample> Examples { get; set; }
-		public ICollection<WordTranslate> Translates { get; set; }
-		public ICollection<WordPicture> Pictures { get; set; }
+		public List<string> Examples { get; set; } = new List<string>();
+		public List<string> Translates { get; set; } = new List<string>();
+		public List<string> Pictures { get; set; } = new List<string>();
 	}
 }
